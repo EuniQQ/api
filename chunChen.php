@@ -27,17 +27,17 @@
         <div class="row">
             <img src="./imgbin_chiang-kai-shek-memorial-hall-beef-noodle-soup-banana-pancakes-food-chinese-cuisine-png.png" style="width:20%;" class="mx-auto my-5">
 
-            <h1 class="col-12 text-center pt-3 text-white" style="font-family: 'Inter', sans-serif;font-family: 'Noto Serif TC', serif; ">中 正 紀 念 堂 典 藏 文 物</h1>
+            <h1 class="col-12 text-center pt-3 text-white" style="font-family: 'Inter', sans-serif;font-family: 'Noto Serif TC', serif; ">中 正 紀 念 堂 典 藏 文 物 目 錄</h1>
         </div>
     </div>
 
 
 
-    <div class="container mt-5" style="background-color:white;">
-        <table id="dataTable" class="table table-striped">
+    <div class="container" style="background-color:white;padding-top:20px;margin-top:30px">
+        <table id="dataTable" class="table table-striped ">
 
             <!-- 分類下拉選單             -->
-            <div class="row mt-5">
+            <!-- <div class="row mt-5">
                 <form action="/action_page.php">
                     <label for="cars">選擇分類：</label>
                     <select id="cars" name="cars">
@@ -46,7 +46,7 @@
                     </select>
                     <input type="submit">
                 </form>
-            </div>
+            </div> -->
 
             <thead>
                 <tr>
@@ -69,7 +69,7 @@
             <div class="col-12" style="display:flex;align-items:flex-end">
                 <img src="./59786c5b3aced.png" style="width:100vw;">
                 <div class="col-12" style=" background-color:black;opacity:0.7;z-index:1;position:absolute">
-                    <p class=" text-center my-5 text-white">©2022 copyright by Eunice Chang</p>
+                    <p class=" text-center my-5 text-white" style="line-height:30px">©2022 copyright by Eunice Chang<br>API資料來源：政府資料開放平臺</p>
                 </div>
             </div>
         </div>
@@ -90,10 +90,11 @@
             $.getJSON("art2.php", (res) => {
                 console.log('res', res);
 
-
-                for (let i = 1500; i < res.length; i++) {
-                    str = res[i].Description.substr(0, 90) + " ...(觀看全文)";
-
+                // for (let i = 1; i < res.length; i++) {
+                for (let i = 1; i < 500; i++) {
+                    if(res[i].Description.length>89){
+                    str = res[i].Description.substr(0, 90) + "...(觀看全文)";
+                
                     $('tbody').append(`  
                     <tr> 
                         <td class="text-center">${i}</td>
@@ -105,6 +106,7 @@
                         </td>
                     </tr>  
             `)
+        }
                 }
                 $('#dataTable').DataTable();
 
