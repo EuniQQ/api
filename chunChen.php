@@ -14,28 +14,41 @@
     <link rel="stylesheet" href="./stylesheet.css">
 </head>
 <style>
-    .bg{
+    .bg {
         /* object-fit:cover; */
         position: relative;
-        width:100vw;
-        background-color:darkgray;
+        width: 100vw;
+        background-color: darkgray;
     }
 </style>
+
 <body>
-    <div class="container-fruid" >
+    <div class="container-fruid">
         <div class="row">
-        <img src="./imgbin_chiang-kai-shek-memorial-hall-beef-noodle-soup-banana-pancakes-food-chinese-cuisine-png.png" 
-            style="width:20%;" class="mx-auto my-5">
-       
-            <h1 class="col-12 text-center pt-3 text-white" style="font-family: 'Inter', sans-serif;font-family: 'Noto Serif TC', serif; ">中 正 紀 念 堂 典 藏 文 物</h1>     
+            <img src="./imgbin_chiang-kai-shek-memorial-hall-beef-noodle-soup-banana-pancakes-food-chinese-cuisine-png.png" style="width:20%;" class="mx-auto my-5">
+
+            <h1 class="col-12 text-center pt-3 text-white" style="font-family: 'Inter', sans-serif;font-family: 'Noto Serif TC', serif; ">中 正 紀 念 堂 典 藏 文 物</h1>
         </div>
     </div>
 
+
+
     <div class="container mt-5" style="background-color:white;">
         <table id="dataTable" class="table table-striped">
-            
-            <thead>
 
+            <!-- 分類下拉選單             -->
+            <div class="row mt-5">
+                <form action="/action_page.php">
+                    <label for="cars">選擇分類：</label>
+                    <select id="cars" name="cars">
+                        <option value="藝術類">藝術類</option>
+                        <option value="文物類">文物類</option>
+                    </select>
+                    <input type="submit">
+                </form>
+            </div>
+
+            <thead>
                 <tr>
                     <th style="width:10%" class="text-center">編號</th>
                     <th style="width:20%" class="text-center">藏品名稱</th>
@@ -50,13 +63,13 @@
 
         </table>
     </div>
-    
-    <div class="container-fruid" >
+
+    <div class="container-fruid">
         <div class="row">
             <div class="col-12" style="display:flex;align-items:flex-end">
-                <img src="./59786c5b3aced.png"  style="width:100vw;">
+                <img src="./59786c5b3aced.png" style="width:100vw;">
                 <div class="col-12" style=" background-color:black;opacity:0.7;z-index:1;position:absolute">
-                    <p class=" text-center my-5 text-white" >©2022 copyright by Eunice Chang</p>
+                    <p class=" text-center my-5 text-white">©2022 copyright by Eunice Chang</p>
                 </div>
             </div>
         </div>
@@ -77,30 +90,31 @@
             $.getJSON("art2.php", (res) => {
                 console.log('res', res);
 
-                for (let i = 1; i < res.length; i++) {
-                        str = res[i].Description.substr(0, 90) + " ...(觀看完整)";
+
+                for (let i = 1500; i < res.length; i++) {
+                    str = res[i].Description.substr(0, 90) + " ...(觀看全文)";
 
                     $('tbody').append(`  
                     <tr> 
                         <td class="text-center">${i}</td>
                         <td class="text-center">${res[i].MainTitle}</td>
                         <td class="text-center">${res[i].Type}</td>
-                        <td class="toogle">
-                        <div class="short ">${str}<div>
-                        <div class="full" style="display:none;">${res[i].Description}<div>
+                        <td class="switch">
+                            <div class="short">${str}</div>
+                            <div class="full" style="display:none;">${res[i].Description}</div>
                         </td>
                     </tr>  
             `)
-
                 }
-
                 $('#dataTable').DataTable();
+
+                $(".switch").on("click", function() {
+                $(this).parent().find(".short,.full").toggle();
             })
         })
 
-
-        $(".toogle").on("click",function(){
-            $(this).parent().find(".short,.full").toggle();
+            
+            
         })
     </script>
 
